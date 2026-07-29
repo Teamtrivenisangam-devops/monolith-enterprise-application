@@ -28,7 +28,7 @@ public class ClientServiceImplUTest {
     private ClientRepository clientRepository;
 
     @InjectMocks
-    private ClientServiceImpl classUnderTest = new ClientServiceImpl();
+    private ClientServiceImpl clientServiceImpl;
 
     @Test
     public void testGetClient() throws Exception {
@@ -38,9 +38,9 @@ public class ClientServiceImplUTest {
 
         Mockito.when(clientRepository.getClient(clientId)).thenReturn(client);
 
-        Client actualClient = classUnderTest.getClient(clientId);
+        Client actualClient = clientServiceImpl.getClient(clientId);
 
-        assertTrue(actualClient != null);
+        assertNotNull(actualClient);
         assertEquals(client, actualClient);
         Mockito.verify(clientRepository, times(1)).getClient(clientId);
     }
@@ -49,10 +49,10 @@ public class ClientServiceImplUTest {
     public void testCreateClient() throws Exception {
         Client client = getClient();
 
-        Mockito.when(clientRepository.getClient(client.getId())).thenReturn(client);
+        Mockito.when(clientRepository.getClient(client.getId())).thenReturn(null);
         Mockito.doNothing().when(clientRepository).createClient(client);
 
-        classUnderTest.createClient(client);
+        clientServiceImpl.createClient(client);
 
         Mockito.verify(clientRepository, times(1)).createClient(client);
     }
@@ -62,7 +62,7 @@ public class ClientServiceImplUTest {
         Client client = getClient();
 
         Mockito.when(clientRepository.getClient(client.getId())).thenReturn(client);
-        classUnderTest.createClient(client);
+        clientServiceImpl.createClient(client);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class ClientServiceImplUTest {
         Mockito.when(clientRepository.getClient(client.getId())).thenReturn(client);
         Mockito.doNothing().when(clientRepository).updateClient(client);
 
-        classUnderTest.updateClient(client);
+        clientServiceImpl.updateClient(client);
 
         Mockito.verify(clientRepository, times(1)).updateClient(client);
     }
@@ -84,9 +84,9 @@ public class ClientServiceImplUTest {
         Mockito.when(clientRepository.getClient(clientId)).thenReturn(new Client());
         Mockito.doNothing().when(clientRepository).deleteClient(clientId);
 
-        classUnderTest.deleteClient(clientId);
+        clientServiceImpl.deleteClient(clientId);
 
-        Mockito.verify(clientRepository, times(1)).deleteClient(clientId);
+        Mockito.verify(clientRepository, Mockito.times(1)).deleteClient(clientId);
     }
 
     @Test(expected = SnowmanException.class)
@@ -95,7 +95,7 @@ public class ClientServiceImplUTest {
 
         Mockito.when(clientRepository.getClient(clientId)).thenReturn(null);
 
-        classUnderTest.deleteClient(clientId);
+        clientServiceImpl.deleteClient(clientId);
     }
 
     private Client getClient() {
@@ -105,5 +105,4 @@ public class ClientServiceImplUTest {
         client.setProjects(Collections.<Project>emptySet());
         return client;
     }
-
 }

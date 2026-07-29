@@ -13,12 +13,23 @@ public final class EmployeeTestHelper {
     private EmployeeTestHelper(){
     }
 
-    public static Employee getEmployee() {
+   /* public static Employee getEmployee() {
         Employee employee = new Employee();
         employee.setId(1);
         employee.setRole(new EmployeeRole());
         employee.setFirstname("FirstName");
         employee.setSurname("Surname");
         return employee;
+    }*/
+
+    public static Employee getEmployee() {
+        Employee employee = new Employee();
+        employee.setId(1);
+        EmployeeRole employeeRole = new EmployeeRole();
+        employeeRole.setRole("role");
+        employee.setRole(employeeRole);
+        employee.setFirstname("firstName");
+        employee.setSurname("surName");
+        return employee;
     }
-}
+}   

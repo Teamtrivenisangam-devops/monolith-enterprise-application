@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: enterprise-application-service
+  namespace: snowman
+
+spec:
+  type: LoadBalancer
+
+  selector:
+    app: enterprise-application
+
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8090

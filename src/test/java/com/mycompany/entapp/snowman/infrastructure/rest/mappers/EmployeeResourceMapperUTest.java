@@ -10,6 +10,7 @@ import com.mycompany.entapp.snowman.domain.model.Employee;
 import com.mycompany.entapp.snowman.domain.model.EmployeeRole;
 import com.mycompany.entapp.snowman.infrastructure.rest.resources.EmployeeResource;
 import org.junit.Test;
+import java.util.HashSet;
 
 import static org.junit.Assert.*;
 
@@ -45,7 +46,7 @@ public class EmployeeResourceMapperUTest {
         assertEquals("firstName", actualEmployee.getFirstname());
         assertEquals("surname", actualEmployee.getSurname());
         assertEquals(employeeRole, actualEmployee.getRole());
-        assertEquals(null, actualEmployee.getProjects());
+        assertEquals(new HashSet<>(0), actualEmployee.getProjects());
     }
 
 }

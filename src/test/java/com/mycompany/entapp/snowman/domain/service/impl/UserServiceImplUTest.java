@@ -19,6 +19,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 import static org.junit.Assert.assertEquals;
 
@@ -67,17 +69,17 @@ public class UserServiceImplUTest {
         Mockito.verify(userDao, Mockito.times(1)).saveUser(user);
     }
 
-    @Test
-    public void testDeleteUser(){
-        int userId = 1;
-        User user = getUser(1);
+@Test
+     public void testDeleteUser(){
+         int userId = 1;
+         User user = getUser(1);
 
-        Mockito.doNothing().when(userDao).removeUser(userId);
+         Mockito.doNothing().when(userDao).removeUser(userId);
 
-        userService.deleteUser(userId);
+         userService.deleteUser(userId);
 
-        Mockito.verify(userService, Mockito.times(1)).deleteUser(userId);
-    }
+         Mockito.verify(userDao, Mockito.times(1)).removeUser(userId);
+     }
 
     private User getUser(int userId) {
         User user = new User();

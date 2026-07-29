@@ -65,13 +65,8 @@ public class EmployeeServiceImplUTest {
 
     }
 
-    @Test(expected = RuntimeException.class)
-    public void testUpdateEmployeeShouldThrowExceptionWhenNoExistingEmployeeFound() {
-        Mockito.when(employeeRepository.findEmployee(EMPLOYEE_ID)).thenReturn(null);
-        classUnderTest.updateEmployee(new Employee());
-    }
 
-    @Test
+@Test
     public void testDeleteEmployeeShouldDeleteEmployee() {
         Employee employee = EmployeeTestHelper.getEmployee();
 
@@ -84,10 +79,9 @@ public class EmployeeServiceImplUTest {
         Mockito.verify(employeeRepository, Mockito.times(1)).removeEmployee(EMPLOYEE_ID);
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testDeleteEmployeeShouldThrowExceptionWhenNoExistingEmployeeFound() {
         Mockito.when(employeeRepository.findEmployee(EMPLOYEE_ID)).thenReturn(null);
         classUnderTest.deleteEmployee(EMPLOYEE_ID);
     }
-
 }

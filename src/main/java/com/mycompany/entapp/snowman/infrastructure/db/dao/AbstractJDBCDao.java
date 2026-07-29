@@ -16,13 +16,10 @@ public abstract class AbstractJDBCDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractJDBCDao.class);
 
-    private static final String DATABASE_HOST = "localhost";
-    private static final String DATABASE_PORT = "3306";
-    private static final String DATABASE = "snowman";
+    private static final String DATABASE_CONNECTION_URL = System.getenv("JDBC_URL") != null ? System.getenv("JDBC_URL") : "jdbc:mysql://localhost:3306/snowman";
 
-    private static final String DATABASE_CONNECTION_URL = "jdbc:mysql://" + DATABASE_HOST + ":" + DATABASE_PORT + "/" + DATABASE;
-    private static final String DATABASE_USERNAME = "username";
-    private static final String DATABASE_PASSWORD = "password";
+    private static final String DATABASE_USERNAME = System.getenv("JDBC_USERNAME") != null ? System.getenv("JDBC_USERNAME") : "username";
+    private static final String DATABASE_PASSWORD = System.getenv("JDBC_PASSWORD") != null ? System.getenv("JDBC_PASSWORD") : "password";
 
     protected void setupDBDriver() {
         try {
