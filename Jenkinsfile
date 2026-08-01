@@ -50,6 +50,7 @@ pipeline {
                     sh 'mvn test'
                 }
             }
+        
             post {
     always {
         dir("${PROJECT_DIR}") {
@@ -57,7 +58,7 @@ pipeline {
         }
     }
 }
-
+        }
         stage('SonarQube Analysis') {
             steps {
                 dir("${PROJECT_DIR}") {
