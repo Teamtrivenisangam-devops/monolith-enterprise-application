@@ -47,7 +47,7 @@ pipeline {
             steps {
                 dir("${PROJECT_DIR}") {
                     // PowerMock 1.7.3 is incompatible with JDK 17 - ignoring failures for now.
-                    sh 'mvn -B test -Dmaven.test.failure.ignore=true'
+                    sh 'mvn -B test'
                 }
             }
             post {
