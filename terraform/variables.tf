@@ -51,5 +51,5 @@ variable "mysql_admin_password" {
 
 variable "acr_name" {
   description = "Must be globally unique, alphanumeric only. Override with -var if 'snowmanacr' is taken."
-  default     = "snowmanacr"
+  default     = "snowmanacr9207"
 }
