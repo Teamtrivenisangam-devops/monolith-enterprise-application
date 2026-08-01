@@ -93,7 +93,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 dir("${PROJECT_DIR}") {
-                    sh "docker build -t ${FULL_IMAGE} -f docker/Dockerfile ."
+                    sh "docker build -t ${FULL_IMAGE} -f Dockerfile ."
                 }
             }
         }
