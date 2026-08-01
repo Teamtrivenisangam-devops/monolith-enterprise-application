@@ -46,16 +46,17 @@ pipeline {
         stage('Unit Test') {
             steps {
                 dir("${PROJECT_DIR}") {
-                    // PowerMock 1.7.3 is incompatible with JDK 17 - ignoring failures for now.
+                    
                     sh 'mvn test'
                 }
             }
             post {
-                always {
-                    junit testResults: "${PROJECT_DIR}/target/surefire-reports/*.xml", allowEmptyResults: true
-                }
-            }
+    always {
+        dir("${PROJECT_DIR}") {
+            junit 'target/surefire-reports/*.xml'
         }
+    }
+}
 
         stage('SonarQube Analysis') {
             steps {
