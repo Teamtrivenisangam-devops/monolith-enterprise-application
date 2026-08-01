@@ -7,7 +7,6 @@ package com.mycompany.entapp.snowman.infrastructure.rest.endpoint;
 
 import com.mycompany.entapp.snowman.domain.model.Project;
 import com.mycompany.entapp.snowman.domain.service.ProjectService;
-import com.mycompany.entapp.snowman.infrastructure.rest.mappers.ProjectResourceMapper;
 import com.mycompany.entapp.snowman.infrastructure.rest.resources.ProjectResource;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -16,17 +15,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 
 import static org.junit.Assert.*;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(ProjectResourceMapper.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ProjectRestEndpointUTest {
 
     @Mock
@@ -52,20 +48,19 @@ public class ProjectRestEndpointUTest {
 
     @Test
     public void testGetProject() {
-        PowerMockito.mockStatic(ProjectResourceMapper.class);
-
         Integer projectId = 1;
 
         Project project = new Project();
+        project.setId(1);
+        project.setProjectTitle("Title");
 
-        ProjectResource expectedProjectResource = new ProjectResource();
-
-        PowerMockito.when(ProjectResourceMapper.mapToProjectResource(project)).thenReturn(expectedProjectResource);
         Mockito.when(projectService.getProject(projectId)).thenReturn(project);
 
         ResponseEntity response = classUnderTest.getProject(projectId);
 
-        assertEquals(expectedProjectResource, response.getBody());
+        ProjectResource actualResource = (ProjectResource) response.getBody();
+        assertEquals(project.getId(), actualResource.getProjectId());
+        assertEquals(project.getProjectTitle(), actualResource.getTitle());
     }
 
     @Test
@@ -86,7 +81,7 @@ public class ProjectRestEndpointUTest {
         projectResource.setTitle("Title");
         projectResource.setDateStarted(new DateTime(2018, 1,1, 12, 0, 0).toDate());
 
-        Mockito.doNothing().when(projectService).createProject(Matchers.any(Project.class));
+        Mockito.doNothing().when(projectService).updateProject(Matchers.any(Project.class));
 
         ResponseEntity<?> response = classUnderTest.updateProject(projectResource);
 

@@ -55,12 +55,12 @@ public class EmployeeServiceImplUTest {
     public void testUpdateEmployeeShouldUpdateEmployee() {
         Employee employee = EmployeeTestHelper.getEmployee();
 
-        Mockito.when(employeeRepository.findEmployee(EMPLOYEE_ID)).thenReturn(employee);
+        Mockito.when(employeeRepository.findEmployee(employee.getId())).thenReturn(employee);
         Mockito.doNothing().when(employeeRepository).saveEmployee(employee);
 
         classUnderTest.updateEmployee(employee);
 
-        Mockito.verify(employeeRepository, Mockito.times(1)).findEmployee(EMPLOYEE_ID);
+        Mockito.verify(employeeRepository, Mockito.times(1)).findEmployee(employee.getId());
         Mockito.verify(employeeRepository, Mockito.times(1)).saveEmployee(employee);
 
     }

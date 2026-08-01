@@ -9,12 +9,16 @@ import com.mycompany.entapp.snowman.domain.exception.SnowmanException;
 import com.mycompany.entapp.snowman.domain.model.Client;
 import com.mycompany.entapp.snowman.domain.model.Project;
 import com.mycompany.entapp.snowman.domain.repository.ClientRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 
@@ -27,8 +31,17 @@ public class ClientServiceImplUTest {
     @Mock
     private ClientRepository clientRepository;
 
+    @Mock
+    private RestTemplate restTemplate;
+
     @InjectMocks
     private ClientServiceImpl clientServiceImpl;
+
+    @Before
+    public void setUp() {
+        Mockito.when(restTemplate.getForEntity(Mockito.anyString(), Mockito.eq(String.class)))
+            .thenReturn(new ResponseEntity<>("{}", HttpStatus.OK));
+    }
 
     @Test
     public void testGetClient() throws Exception {
@@ -81,7 +94,7 @@ public class ClientServiceImplUTest {
     public void testDeleteClient() throws Exception {
         int clientId = 1;
 
-        Mockito.when(clientRepository.getClient(clientId)).thenReturn(new Client());
+        Mockito.when(clientRepository.getClient(clientId)).thenReturn(getClient());
         Mockito.doNothing().when(clientRepository).deleteClient(clientId);
 
         clientServiceImpl.deleteClient(clientId);

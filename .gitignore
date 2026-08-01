@@ -35,3 +35,12 @@ target/*
 ehthumbs.db
 Thumbs.db
 /target/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# AKS kubeconfig
+aks-kubeconfig
+
