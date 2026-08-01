@@ -14,3 +14,4 @@ COPY --from=build /app/target/Snowman.jar /app/Snowman.jar
 EXPOSE 8090
 
 ENTRYPOINT ["java", "-jar", "/app/Snowman.jar"]
+................
