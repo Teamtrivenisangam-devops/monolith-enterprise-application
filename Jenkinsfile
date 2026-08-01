@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         PROJECT_DIR      = '/home/azureuser/monolith-enterprise-application'
-        GIT_REPO_URL      = 'https://github.com/Teamtrivenisangam-devops/monolith-enterprise-application'
+        GIT_REPO_URL      = 'https://github.com/Teamtrivenisangam-devops/monolith-enterprise-application.git'
         GIT_BRANCH        = 'main'
         ACR_NAME         = 'snowmanacr'
         ACR_LOGIN_SERVER = "${ACR_NAME}.azurecr.io"
